@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Filter } from "./filter";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const Body = () => {
   const router = useRouter()
@@ -94,12 +95,14 @@ export const Body = () => {
                 className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 <div className="relative h-48 overflow-hidden">
-                  <img
+                  <Image
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    fill
+                    className=" transition-transform duration-500 hover:scale-110"
                   />
                 </div>
+        
                 <div className="p-4">
                   <h2 className="text-lg font-semibold text-gray-800 mb-1 truncate">{meal.strMeal}</h2>
                   <div className="flex justify-between items-center">

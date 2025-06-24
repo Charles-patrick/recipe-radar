@@ -1,8 +1,9 @@
 'use client'
 import { useParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
+import Image from "next/image"
 
-const page = () => {
+const Page = () => {
   const params = useParams()
   const { id } = params 
 
@@ -48,11 +49,16 @@ const page = () => {
 
   return (
     <>
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-4 rounded-md border-r-2">
             <h1 className="text-2xl font-bold text-center py-2">{meal?.strMeal}</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 shadow '>
-              <div className=''>
-                <img src={meal?.strMealThumb} alt={meal?.strMeal} className="h-full"/>
+              <div className="relative w-full h-64 ">
+                <Image
+                  src={meal.strMealThumb}
+                  alt={meal.strMeal}
+                  fill
+                  className="object-cover rounded-t-md sm:rounded-tr-0"
+                />
               </div>
               <div className=' sm:row-span-3 px-4 py-2'>
                 <h2 className="text-xl font-semibold mb-2">Category: {meal.strCategory}</h2>
@@ -74,4 +80,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
