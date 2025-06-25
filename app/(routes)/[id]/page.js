@@ -49,15 +49,15 @@ const Page = () => {
 
   return (
     <>
-        <div className="max-w-7xl mx-auto px-4 py-4 rounded-md border-r-2">
+        <div className="max-w-7xl mx-auto px-4 py-4 ">
             <h1 className="text-2xl font-bold text-center py-2">{meal?.strMeal}</h1>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 shadow '>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 shadow rounded-md '>
               <div className="relative w-full h-64 ">
                 <Image
                   src={meal.strMealThumb}
                   alt={meal.strMeal}
                   fill
-                  className="object-cover rounded-t-md sm:rounded-tr-0"
+                  className="object-cover rounded-t-md sm:rounded-tr-none"
                 />
               </div>
               <div className=' sm:row-span-3 px-4 py-2'>

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Filter } from "./filter";
 import { useRouter } from "next/navigation";
@@ -7,8 +7,10 @@ import Image from "next/image";
 
 export const Body = () => {
   const router = useRouter()
+  const[ imageLoaded , setImageLoaded ] = useState(false)
   const [category, setCategory] = useState('Seafood');
   const [query, setQuery] = useState('');
+
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['recipes', category],
@@ -20,16 +22,16 @@ export const Body = () => {
       return res.json();
     }
   });
+    useEffect(() => {
+    setImageLoaded(false)
+      } , [category])
 
   const inputChange = (e) => {
     setQuery(e.target.value)
-    console.log('query value' , query , query.length)
-
   }
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // setSearchTerm(query);
     setQuery('')
   };
   const filteredMeals = query.length > 0
@@ -68,12 +70,12 @@ export const Body = () => {
       
       {/* Recipe Grid */}
       <section className="pb-10">
-        {isLoading && (
+        {/* {isLoading && (
           <div className="text-center py-8">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-400"></div>
             <p className="mt-2 text-lg">Loading recipes...</p>
           </div>
-        )}
+        )} */}
         
         {isError && (
           <div className="text-center py-8">
@@ -94,12 +96,22 @@ export const Body = () => {
                 key={meal.idMeal} 
                 className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
+                
                 <div className="relative h-48 overflow-hidden">
+                  {!imageLoaded && (
+                   <div class="flex items-center justify-center w-full h-full  bg-gray-300 rounded-sm  dark:bg-gray-700">
+                      <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                          <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                      </svg>
+                  </div>
+                  )}
                   <Image
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
                     fill
                     className=" transition-transform duration-500 hover:scale-110"
+                    onLoad={() => setImageLoaded(true)}
+                    onError={() => setImageLoaded(true)}
                   />
                 </div>
         

@@ -23,7 +23,7 @@ export const Filter = ({category , setCategory}) => {
               <select
                 id="category"
                 value={category}
-                onChange={e => { refetch();  setCategory(e.target.value) ; console.log(category); }}
+                onChange={e => { refetch();  setCategory(e.target.value) }}
                 className="border border-gray-300 rounded px-2 py-1"
               >
                 {data?.categories?.map((cat) => (
